@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ove-external-${SERVICE_NAME}-${SERVICE_VERSION}:
+    image: ovehub/ove-external-${SERVICE_NAME}:${SERVICE_VERSION}
+    build: 
+      context: ../
+      dockerfile: ${GENERATED_PATH}/Dockerfile.${SERVICE_NAME}
+    ports:
+    - "${SERVICE_PORT}:${SERVICE_PORT}"
