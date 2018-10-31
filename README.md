@@ -10,7 +10,7 @@ The build system is based on Bash, Docker and docker-compose. This works well wi
 
 ### Build an external service
 
-Clone the desired repository e.g. Tuoris https://github.com/oserban/tuoris.git then run:
+Clone the desired repository e.g. Tuoris https://github.com/fvictor/tuoris.git then run:
 
 ```sh
 ./build.sh -s tuoris -p 7080 --chrome
