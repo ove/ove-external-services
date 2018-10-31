@@ -6,7 +6,7 @@
       "kill_timeout": 3000,
       "restart_delay": 3000,
       "script": "npm",
-      "args": "run start -- --port ${SERVICE_PORT}"
+      "args": "run start -- --port ${SERVICE_PORT} -i 1"
     }
   ]
 }
