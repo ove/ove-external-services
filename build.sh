@@ -23,6 +23,7 @@ function display_help() {
   echo "   -s, --service     The name of the service to build, same as the folder name"
   echo "   -p, --port        The port(s) exposed by the service"
   echo "   --chrome          Include chrome in the build"
+  echo "   --push            Push the image"
   echo "   -v, --version     The version of the service"
 }
 
@@ -31,6 +32,7 @@ if [ $? -ne 0 ]; then
   version="latest"
 fi
 
+pushImage=false
 BASE_IMAGE="Dockerfile"
 
 while [[ $# -gt 0 ]]; do
@@ -55,6 +57,9 @@ while [[ $# -gt 0 ]]; do
       version="$2"
       echo "Recognized user version = ${version}"
       shift
+      ;;
+    --push)
+      pushImage=true
       ;;
     *)
       echo "Unrecognised option: $key"
@@ -94,5 +99,9 @@ docker-compose -f ${GENERATED_PATH}/docker-compose.${SERVICE_NAME}.yml build
 if [ $? -ne 0 ]; then
   # fail if the image build process failed
   exit 1
+fi
+
+if [ "${pushImage}" = true ]; then
+  docker-compose push
 fi
 
