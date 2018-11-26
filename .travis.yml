@@ -1,0 +1,23 @@
+sudo: false
+language: node_js
+node_js: stable
+
+services:
+  - docker
+
+install: .travis/execute.sh --command install
+
+stages:
+  - test
+  - name: deploy
+    if: branch = master AND type != pull_request
+
+jobs:
+  include:
+    - stage: test
+      script: .travis/execute.sh --command test
+    - stage: deploy
+      script:
+        - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin 
+        - .travis/execute.sh --command build
+
