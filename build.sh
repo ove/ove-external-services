@@ -31,6 +31,7 @@ version=`git describe --tags --exact-match 2> /dev/null`
 if [ $? -ne 0 ]; then
   version="latest"
 fi
+version="${version}-unstable"
 
 pushImage=false
 BASE_IMAGE="Dockerfile"
