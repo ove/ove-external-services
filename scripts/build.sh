@@ -108,6 +108,6 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ "${pushImage}" = true ]; then
-  docker-compose push
+  docker-compose -f ${GENERATED_PATH}/docker-compose.${SERVICE_NAME}.yml push
 fi
 
