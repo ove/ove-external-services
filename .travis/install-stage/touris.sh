@@ -9,7 +9,7 @@ if [[ -d tuoris ]]; then
     git pull
     cd ..
 else
-    git clone https://github.com/fvictor/tuoris.git
+    git clone --branch v0.1 https://github.com/fvictor/tuoris
 fi
 
 cd tuoris/
