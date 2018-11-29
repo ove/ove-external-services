@@ -13,7 +13,7 @@ The build system is based on Bash, Docker and docker-compose. This works well wi
 Clone the desired repository e.g. Tuoris https://github.com/fvictor/tuoris.git then run:
 
 ```sh
-./build.sh -s tuoris -p 7080 --chrome
+scripts/build.sh -s tuoris -p 7080 --chrome
 ```
 The -s option represents the service name (which has to match the folder name) and -p represents the port number the service exposes.
 

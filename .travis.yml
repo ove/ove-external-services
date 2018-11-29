@@ -5,7 +5,7 @@ node_js: stable
 services:
   - docker
 
-install: .travis/execute.sh --command install
+install: scripts/execute.sh --command install
 
 stages:
   - test
@@ -15,9 +15,9 @@ stages:
 jobs:
   include:
     - stage: test
-      script: .travis/execute.sh --command test
+      script: scripts/execute.sh --command test
     - stage: deploy
       script:
         - echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin 
-        - .travis/execute.sh --command build
+        - scripts/execute.sh --command build
 

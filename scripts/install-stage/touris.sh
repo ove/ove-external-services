@@ -6,11 +6,13 @@ cd ${scriptPath}/../../
 
 if [[ -d tuoris ]]; then
     cd tuoris
-    git pull
+    git fetch
     cd ..
 else
-    git clone --branch v0.1 https://github.com/fvictor/tuoris
+    git clone https://github.com/fvictor/tuoris
 fi
 
 cd tuoris/
+git checkout v0.1
+
 npm install
