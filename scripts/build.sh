@@ -1,7 +1,7 @@
 #!/bin/bash
 
 scriptPath=$(dirname "$(readlink -f "$0")")
-cd ${scriptPath}/
+cd ${scriptPath}/../
 
 TEMPLATES_PATH="templates"
 
@@ -27,12 +27,7 @@ function display_help() {
   echo "   -v, --version     The version of the service"
 }
 
-version=`git describe --tags --exact-match 2> /dev/null`
-if [ $? -ne 0 ]; then
-  version="latest"
-fi
-version="${version}-unstable"
-
+version=""
 pushImage=false
 BASE_IMAGE="Dockerfile"
 
@@ -56,7 +51,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     -v|--version)
       version="$2"
-      echo "Recognized user version = ${version}"
+      echo "User version = ${version}"
       shift
       ;;
     --push)
@@ -78,8 +73,6 @@ export SERVICE_PORT=${port}
 
 trap deactivate_env EXIT SIGINT SIGTERM
 
-echo "Using version = ${SERVICE_VERSION}"
-
 if [[ ! -d "${SERVICE_NAME}" ]]; then
   echo "Invalid service = ${SERVICE_NAME} provided"
   exit 1
@@ -89,6 +82,18 @@ if [[ -z "${SERVICE_PORT}" ]]; then
   echo "Invalid port provided"
   exit 1
 fi
+
+if [[ -z "${SERVICE_VERSION}" ]]; then
+  cd ${SERVICE_NAME}
+  SERVICE_VERSION=`git describe --tags --exact-match 2> /dev/null`
+  if [ $? -ne 0 ]; then
+    SERVICE_VERSION="latest"
+  fi
+  SERVICE_VERSION="${SERVICE_VERSION}-unstable"
+  cd ..
+fi
+
+echo "Using version = ${SERVICE_VERSION}"
 
 echo "Building service = ${SERVICE_NAME} exposing port = ${SERVICE_PORT} using baseImage = ${BASE_IMAGE}"
 
@@ -103,6 +108,6 @@ if [ $? -ne 0 ]; then
 fi
 
 if [ "${pushImage}" = true ]; then
-  docker-compose push
+  docker-compose -f ${GENERATED_PATH}/docker-compose.${SERVICE_NAME}.yml push
 fi
 
