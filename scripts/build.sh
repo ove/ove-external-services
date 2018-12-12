@@ -89,7 +89,7 @@ if [[ -z "${SERVICE_VERSION}" ]]; then
   if [ $? -ne 0 ]; then
     SERVICE_VERSION="latest"
   fi
-  SERVICE_VERSION="${SERVICE_VERSION}-unstable"
+  SERVICE_VERSION="${SERVICE_VERSION}"
   cd ..
 fi
 
