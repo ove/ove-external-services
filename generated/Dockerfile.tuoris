@@ -1,0 +1,15 @@
+FROM node:10-alpine
+WORKDIR /usr/src/app
+
+COPY ./tuoris .
+
+RUN apk add --no-cache chromium nss
+ENV CHROME_BIN=/usr/bin/chromium-browser
+
+RUN npm install -global pm2
+
+RUN npm install --production 
+
+EXPOSE 7080
+
+CMD [ "pm2-runtime", "pm2.json" ]

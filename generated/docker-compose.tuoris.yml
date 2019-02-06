@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ove-external-tuoris-v0.1:
+    image: ovehub/ove-external-tuoris:v0.1
+    build: 
+      context: ../
+      dockerfile: generated/Dockerfile.tuoris
+    ports:
+    - "7080:7080"
