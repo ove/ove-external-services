@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:10-alpine3.9
 WORKDIR /usr/src/app
 
 COPY ./${SERVICE_NAME} .
